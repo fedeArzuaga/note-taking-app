@@ -26,6 +26,4 @@ export function validateForm( e ) {
     validate = true;
     return validate;
 
-
-
 }
