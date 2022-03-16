@@ -1,0 +1,52 @@
+.theme-form {
+
+    .theme-label {
+        & + .theme-label {
+            margin-top: 1rem;
+            display: block;
+        }
+
+        & > p {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+    }
+    
+    .theme-input,
+    .theme-textarea {
+        border-radius: 8px;
+        border: 1px solid transparent;
+        box-shadow: 0 1.5px 4px rgba(0,0,0,0.1);
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+        font-size: 0.8rem;
+        font-family: @global-font-family;
+
+        &::placeholder {
+            color: darken(#ccc, 40%);
+        }
+
+        &.theme-error {
+            border-color: @global-danger-color;
+            &::placeholder {
+                color: darken(@global-danger-color, 20%);
+            }
+        }
+
+    }
+
+    .theme-input {
+        line-height: 2rem;
+    }
+
+    .theme-textarea {
+        width: 100%;
+        min-height: 150px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+}
