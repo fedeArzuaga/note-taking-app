@@ -1,13 +1,105 @@
 .theme-card {
     padding: 20px;
+    padding-top: 40px;
     border-radius: 8px;
     background-color: #fff;
     border-style: solid;
     border-width: 2px 2px 6px 2px;
+    position: relative;
+
+    .options-button {
+        position: absolute;
+        right: 15px;
+        top: 5px;
+        display: block;
+        background: url('./../images/icons/more-options-icon.png') center no-repeat;
+        background-size: contain;
+        width: 30px;
+        height: 30px;
+    }
+
+    .more-options-panel {
+        background: #ccc;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        border-radius: 100px;
+        position: absolute;
+        bottom: calc(100% + 5px);
+        right: 0;
+        display: none;
+
+        &.more-options-panel-visible {
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            height: 30px;
+            display: flex;
+            align-items: center;
+
+            & > li {
+                height: 30px;
+
+                & + li {
+                    margin-left: 10px;
+                }
+                
+                &, & > a {
+                    display: inline-block;
+                }
+
+                & > .change-color {
+                    width: 20px;
+                    height: 20px;
+                    margin-top: 6px;
+                    border-radius: 50%;
+
+                    &[data-color="#20639B"] {
+                        background-color: #20639B;
+                    }
+
+                    &[data-color="#3CAEA3"] {
+                        background-color: #3CAEA3;
+                    }
+
+                    &[data-color="#F6D55C"] {
+                        background-color: #F6D55C;
+                    }
+
+                    &[data-color="#ED553B"] {
+                        background-color: #ED553B;
+                    }
+
+                    &[data-color="#B3B3B3"] {
+                        background-color: #B3B3B3;
+                    }
+
+                }
+
+            }
+
+        }
+
+        img {
+            width: 15px;
+            height: 15px;
+            object-fit: contain;
+            display: block;
+            height: auto;
+            padding: 8px 0;
+            box-sizing: content-box;
+        }
+
+    }
 
     h4 {
         font-size: 1rem;
         margin-bottom: .5rem;
+        padding-right: 1.5rem;
     }
 
     p {

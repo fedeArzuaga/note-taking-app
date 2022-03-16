@@ -16,6 +16,12 @@ function html() {
         .pipe( dest('./dist'));
 }
 
+// Images process
+function copyImages() {
+    return src(['./src/images/**/*.jpg', './src/images/**/*.png', './src/images/**/*.svg'])
+        .pipe( dest('./dist/images') )
+}
+
 // LESS process
 function less() {
     return src('./src/less/style.less')
@@ -30,9 +36,6 @@ function less() {
 // JS process
 function js() {
     return src('./src/js/**/*.js')
-        .pipe(babel({
-            presets: ['@babel/env']
-        }))
         .pipe( jsMinifier() )
         .pipe( dest('./dist/js') )
 }
@@ -62,6 +65,7 @@ function watchTasks() {
 
 exports.default = series(
     html,
+    copyImages,
     less,
     js,
     browsersyncServe,
