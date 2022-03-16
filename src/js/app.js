@@ -1,8 +1,12 @@
-import { createNoteStructure } from "./helpers/card-structure.js";
+import { createNoteStructure, createInternalFormInputs } from "./helpers/card-structure.js";
+import { toggleOptionPanelVisibility } from "./helpers/generic-functions.js";
 
 const mainForm = document.querySelector("#main-form");
 const notesContainer = document.querySelector("#notes-container");
 
+/**
+ * Event listener to add new notes
+*/
 mainForm.addEventListener('submit', e => {
 
     e.preventDefault();
@@ -13,27 +17,39 @@ mainForm.addEventListener('submit', e => {
     }
 
     if ( data.noteName.length > 0 && data.noteContent.length > 0 ) {
-        renderNote( data.noteName, data.noteContent );
+        createNote( data.noteName, data.noteContent );
     }
 
 });
 
 /**
+ * ===================
  * Functions
+ * ===================
  */
 
-const renderNote = ( noteName, noteContent ) => {
-
+const createNote = ( noteName, noteContent ) => {
+    
+    /* Getting the content of general HTML structure of a card */
     const { id, structure } = createNoteStructure( noteName, noteContent ),
           div = document.createElement('div');
 
+    /* Creating the 'theme-card' and appenging it to the card panel */          
     div.dataset.id = id;
     div.classList.add('theme-card');
     div.classList.add('theme-card-default')
-    div.innerHTML = structure
+    div.innerHTML = structure;
 
     notesContainer.append(div);
 
+    const newNoteToSave = {
+        id: id,
+        name: noteName,
+        content: noteContent,
+        color: 'default'
+    }
+
+    /* Adding an event listener to the needed elements to make the cards functional */
     const optionButtons = Array.from(document.querySelectorAll(".options-button"));
     const panelsOptions = Array.from(document.querySelectorAll(".more-options-panel"));
 
@@ -60,35 +76,31 @@ function noteActions( e ) {
     const optionsPanel = e.target.parentElement.parentElement.parentElement
     let note;
 
-    if ( clickedElement == "change-color" ) {
+    switch( clickedElement ) {
 
-        note = e.target.parentElement.parentElement.parentElement.parentElement;
-        note.style.borderColor = e.target.dataset.color;
+        case "change-color":
+            note = e.target.parentElement.parentElement.parentElement.parentElement;
+            note.style.borderColor = e.target.dataset.color;
+            toggleOptionPanelVisibility( optionsPanel );
+        break;
 
-        toggleOptionPanelVisibility( optionsPanel );
+        case "delete-note":
+            note = e.target.parentElement.parentElement.parentElement.parentElement.parentElement;
+            note.remove();
+        break;
 
-    } else if ( clickedElement == "delete-note" ) {
-
-        note = e.target.parentElement.parentElement.parentElement.parentElement.parentElement;
-        note.remove();
-
-    } else if ( clickedElement == "edit-note" ) {
-
-        note = e.target.parentElement.parentElement.parentElement.parentElement.parentElement;
-        const noteTitle = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].textContent.trim();
-        const noteText = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[3].textContent.trim();
-
-        editContent( note )
+        case "edit-note":
+            note = e.target.parentElement.parentElement.parentElement.parentElement.parentElement;
+            editContent( note );
+        break;
 
     }
 
 }
 
-function toggleOptionPanelVisibility ( element ) {
-    element.classList.toggle('more-options-panel-visible')
-}
-
 function editContent ( note ) {
+
+    toggleOptionPanelVisibility( note.children[1] );
 
     const title = note.children[2],
           content = note.children[3],
@@ -97,17 +109,7 @@ function editContent ( note ) {
     form.id = "edit-note";
     form.classList.add('theme-form');
 
-    const formInputs = `
-            <label class="theme-label" for="name">
-                <input class="theme-input" type="text" id="name" name="name" value="${title.textContent.trim()}">
-            </label>
-
-            <label class="theme-label" for="description">
-                <textarea class="theme-textarea" name="description" id="description" cols="30">${content.textContent.trim()}</textarea>
-            </label>
-
-            <input class="theme-submit" type="submit" value="Save">
-    `;
+    const formInputs = createInternalFormInputs(title.textContent.trim(), content.textContent.trim());
 
     title.remove();
     content.remove();

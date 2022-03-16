@@ -8,7 +8,7 @@
 
 html {
     font-family: @global-font-family;
-    font-size: 16px;
+    font-size: 20px;
 
     @media screen and (min-width: @break-m) {
         font-size: 20px;
@@ -22,7 +22,13 @@ body {
 
 h1 {
     font-weight: 600;
-    font-size: 3rem;
+    font-size: 2rem;
+    line-height: 1.4;
+
+    @media screen and (min-width: @break-m) {
+        font-size: 3rem;
+    }
+
 }
 
 .main-content {

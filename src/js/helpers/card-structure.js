@@ -2,8 +2,6 @@ export function createNoteStructure( noteName, noteContent ) {
 
     const id = Date.now();
 
-    /* <div data-id="${id}" class="theme-card theme-card-default"> */
-
     const structure = `
         <a class="options-button" href="#"></a>
 
@@ -11,13 +9,9 @@ export function createNoteStructure( noteName, noteContent ) {
             ${morePanel}
         </div>
 
-        <h4>
-            ${noteName}
-        </h4>
+        <h4>${noteName}</h4>
 
-        <p>
-            ${noteContent}
-        </p>
+        <p>${noteContent}</p>
 
     </div>`;
 
@@ -55,3 +49,17 @@ const morePanel = `<ul>
     </a>
 </li>
 </ul>`;
+
+export const createInternalFormInputs = function ( title, content ) {
+    return `
+        <label class="theme-label" for="name">
+            <input class="theme-input" type="text" id="name" name="name" value="${title}">
+        </label>
+
+        <label class="theme-label" for="description">
+            <textarea class="theme-textarea" name="description" id="description" cols="30">${content}</textarea>
+        </label>
+
+        <input class="theme-submit" type="submit" value="Save changes">
+    `;
+}
