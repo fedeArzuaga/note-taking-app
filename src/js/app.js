@@ -34,20 +34,13 @@ const createNote = ( noteName, noteContent ) => {
     const { id, structure } = createNoteStructure( noteName, noteContent ),
           div = document.createElement('div');
 
-    /* Creating the 'theme-card' and appenging it to the card panel */          
+    /* Creating the 'theme-card' template and appenging it to the card panel */          
     div.dataset.id = id;
     div.classList.add('theme-card');
     div.classList.add('theme-card-default')
     div.innerHTML = structure;
 
     notesContainer.append(div);
-
-    const newNoteToSave = {
-        id: id,
-        name: noteName,
-        content: noteContent,
-        color: 'default'
-    }
 
     /* Adding an event listener to the needed elements to make the cards functional */
     const optionButtons = Array.from(document.querySelectorAll(".options-button"));
@@ -58,6 +51,7 @@ const createNote = ( noteName, noteContent ) => {
 
 }
 
+// Hide/Show the options panel to the user
 function toggleOptionPanel( e ) {
 
     e.stopPropagation();
@@ -70,6 +64,7 @@ function toggleOptionPanel( e ) {
 
 }
 
+// Function to execute several actions, including colorize, edit or delete them
 function noteActions( e ) {
     
     const clickedElement = e.target.className;
@@ -98,6 +93,7 @@ function noteActions( e ) {
 
 }
 
+// Function that creates a new form with the current data in the note to edit it.
 function editContent ( note ) {
 
     toggleOptionPanelVisibility( note.children[1] );
@@ -122,6 +118,7 @@ function editContent ( note ) {
 
 }
 
+// Function that is executed once "Save changes" button is pressed
 function saveChanges( e ) {
 
     e.preventDefault();
