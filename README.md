@@ -12,7 +12,7 @@ This was made using [Node.js](https://nodejs.org/en/) and [Gulp.js](https://gulp
 
     ``node --version`` and/or ``npm --version``. 
 
-    If you get the number of version from your terminal, you're ready to install [Gulp.js](https://gulpjs.com/).
+    If you get the number of the current version from your terminal, you're ready to install [Gulp.js](https://gulpjs.com/).
 
 3. Following the current getting started intructions posted on its own website, you'll have to run this on your terminal: ``npm install --global gulp-cli``
 
