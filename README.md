@@ -1,6 +1,6 @@
 # Note Taking App
 
-A simple javascript app to add, edit and delete notes.
+A simple javascript app to add, edit, customize and delete notes.
 
 ## How can I run this?
 
