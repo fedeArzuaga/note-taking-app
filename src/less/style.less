@@ -39,3 +39,19 @@ h1 {
 .theme-grid-form-and-notes {
     margin-top: 2rem;
 }
+
+#notes-container {
+
+    &.empty {
+        background: url('./../images/background/empty.png') center no-repeat;
+        background-size: contain;
+        min-height: 300px;
+        
+        @media screen and (min-width: @break-m) {
+            min-height: 600px;
+            background-size: 60%;
+        }
+
+    }
+
+}

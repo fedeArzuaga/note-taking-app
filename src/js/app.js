@@ -21,6 +21,8 @@ mainForm.addEventListener('submit', e => {
             noteContent: e.target.description.value
         }
 
+        notesContainer.classList.remove('empty');
+
         createNote( data.noteName, data.noteContent );
 
         e.target.reset();
@@ -89,6 +91,11 @@ function noteActions( e ) {
         case "delete-note":
             note = e.target.parentElement.parentElement.parentElement.parentElement.parentElement;
             note.remove();
+
+            if ( notesContainer.children.length == 0 ) {
+                notesContainer.classList.add('empty');
+            }
+
         break;
 
         case "edit-note":
