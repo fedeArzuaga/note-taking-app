@@ -1,5 +1,6 @@
 import { createNoteStructure, createInternalFormInputs } from "./helpers/card-structure.js";
 import { toggleOptionPanelVisibility } from "./helpers/generic-functions.js";
+import { validateForm } from "./helpers/validate-form.js";
 
 const mainForm = document.querySelector("#main-form");
 const notesContainer = document.querySelector("#notes-container");
@@ -11,13 +12,19 @@ mainForm.addEventListener('submit', e => {
 
     e.preventDefault();
 
-    const data = {
-        noteName: e.target.name.value,
-        noteContent: e.target.description.value
-    }
+    const isFormValidated = validateForm( e );
 
-    if ( data.noteName.length > 0 && data.noteContent.length > 0 ) {
+    if ( isFormValidated ) {
+
+        const data = {
+            noteName: e.target.name.value,
+            noteContent: e.target.description.value
+        }
+
         createNote( data.noteName, data.noteContent );
+
+        e.target.reset();
+
     }
 
 });
@@ -123,22 +130,28 @@ function saveChanges( e ) {
 
     e.preventDefault();
 
-    const note = e.target.parentElement;
+    const isFormValidated = validateForm( e );
 
-    const data = {
-        newTitle: e.target.name.value,
-        newContent: e.target.description.value
+    if ( isFormValidated ) {
+
+        const note = e.target.parentElement;
+
+        const data = {
+            newTitle: e.target.name.value,
+            newContent: e.target.description.value
+        }
+
+        const h4 = document.createElement('h4'),
+            p = document.createElement('p');
+        
+        h4.textContent = data.newTitle;
+        p.textContent = data.newContent;
+            
+        note.append(h4);
+        note.append(p);
+
+        e.target.remove();
+
     }
-
-    const h4 = document.createElement('h4'),
-          p = document.createElement('p');
-    
-    h4.textContent = data.newTitle;
-    p.textContent = data.newContent;
-          
-    note.append(h4);
-    note.append(p);
-
-    e.target.remove();      
 
 }
