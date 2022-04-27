@@ -1,0 +1,1 @@
+export function toggleOptionPanelVisibility(i){i.classList.toggle("more-options-panel-visible")}
